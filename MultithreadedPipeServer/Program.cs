@@ -7,7 +7,7 @@ namespace MultithreadedPipeServer
 {
     internal class Program
     {
-        private static string pipeName = "Demo2Pipe";
+        private static string pipeName = "TestPipe";
         static void Main(string[] args)
         {
             Run();

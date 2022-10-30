@@ -11,8 +11,22 @@ namespace NamedPipesServer
         private StreamWriter writer;
         private NamedPipeClient(string pipeName, int timeOut)
         {
+            int retries = 0;
             client = new NamedPipeClientStream(pipeName);
-            client.Connect(100);
+            while (true)
+            {
+                try
+                {
+                    client.Connect(1000);
+                    break;
+                }
+                catch (Exception)
+                {
+                    if(retries > 3)
+                        throw;
+                    retries++;
+                }
+            }
             reader = new StreamReader(client);
             writer = new StreamWriter(client);
             writer.AutoFlush = true;
